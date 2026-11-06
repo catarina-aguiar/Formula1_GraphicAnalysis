@@ -4,9 +4,8 @@ Comparing Driver's Performance During the Race Weekend in Formula 1
 COMPARING DRIVERS' PERFORMANCE DURING A RACE WEEKEND
 Formula 1 Bahrain Grand Prix in Malaysia (Sepang) 2026 - Verstappen vs Hamilton
 
-============================================================
-FILES
-============================================================
+## FILES
+
 00_theme.R       Shared style: colours, font (Titillium Web), title, caption
 01_load_data.R   Downloads and prepares all the data (OpenF1 + Jolpica/f1dataR)
 02_saturday.R    Qualifying charts: speed map of the track + gearbox maps
@@ -17,9 +16,9 @@ FILES
 The scripts call each other by these exact names, so please keep them
 together in one folder and don't rename them.
 
-============================================================
-HOW TO RUN
-============================================================
+
+## HOW TO RUN
+
 1. Open RStudio and set the working directory to this folder
    (Session > Set Working Directory > To Source File Location).
 
@@ -36,9 +35,9 @@ HOW TO RUN
 4. APP: open 05_app.R and run it.
    Choose a year, a race and two drivers, then press "Build".
 
-============================================================
-GOOD TO KNOW
-============================================================
+
+## GOOD TO KNOW
+
 - An internet connection is needed: the data is downloaded from the
   OpenF1 and Jolpica APIs, and the font from Google Fonts.
 - OpenF1 blocks free access while an F1 session is live (error
