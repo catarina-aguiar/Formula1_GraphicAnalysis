@@ -1,0 +1,73 @@
+# ============================================================
+#  F1 project – exploring what each f1dataR function gives you
+#  Run it section by section (Ctrl/Cmd + Enter).
+#  For each table:  glimpse() = column names, types, first values
+#                   View()    = the full table in RStudio
+# ============================================================
+
+library(f1dataR)
+library(dplyr)
+
+# ---- 0. Setup (run once per session) ------------------------
+# Save downloads to a folder on your computer instead of memory.
+# Needed for the telemetry functions (part B), and it means
+# you don't re-download the same race every time.
+dir.create("f1_cache", showWarnings = FALSE)
+options(f1dataR.cache = file.path(getwd(), "f1_cache"))
+getOption("f1dataR.cache")   # check: should print a folder path
+
+# Check Python + FastF1 are installed (needed for part B).
+# If this says FALSE, run: reticulate::py_install("fastf1")
+# then Session > Restart R, and run this setup section again.
+reticulate::py_module_available("fastf1")
+
+# The race we'll explore. Change these to look at any other race.
+season <- 2025
+rnd    <- 1            # round number (1 = Australian GP 2025)
+driver <- "NOR"        # 3-letter driver code, for telemetry
+
+# ============================================================
+#  PART A – Jolpica data (fast, light, history back to 1950)
+# ============================================================
+
+# ---- A1. The calendar ---------------------------------------
+schedule <- load_schedule(season)
+glimpse(schedule)
+# Look for: round number, race name, circuit, date.
+# Use this to find the round number of any race you want.
+
+# ---- A2. Race results ---------------------------------------
+results <- load_results(season, rnd)
+glimpse(results)
+# One row per driver: finishing position, grid (start) position,
+# points, laps completed, status (Finished / Accident / Engine...),
+# fastest lap, top speed.
+
+# ---- A3. Qualifying -----------------------------------------
+quali <- load_quali(season, rnd)
+glimpse(quali)
+# One row per driver: qualifying position and Q1/Q2/Q3 times.
+
+# ---- A4. Lap-by-lap positions -------------------------------
+laps <- load_laps(season, rnd)
+glimpse(laps)
+# One row per driver PER LAP: position on that lap and lap time.
+# -> This is the data for your "positions during the race" chart.
+
+# ---- A5. Pit stops ------------------------------------------
+pits <- load_pitstops(season, rnd)
+glimpse(pits)
+# One row per stop: driver, which lap, stop number, duration.
+
+# ---- A6. Championship standings -----------------------------
+drv_standings  <- load_standings(season, rnd, type = "driver")
+team_standings <- load_standings(season, rnd, type = "constructor")
+glimpse(drv_standings)
+glimpse(team_standings)
+# The championship table AFTER this round.
+
+# ---- A7. Reference tables -----------------------------------
+drivers  <- load_drivers(season)
+circuits <- load_circuits(season)
+glimpse(drivers)    # names, codes, nationality, date of birth
+glimpse(circuits)   # circuit names, city, country, latitude/longitude
