@@ -1,5 +1,5 @@
 # Formula1_GraphicAnalysis
-## Final grade 20! (19,5)
+## Final grade 20 (19,5)
 Comparing Driver's Performance During the Race Weekend in Formula 1
 
 COMPARING DRIVERS' PERFORMANCE DURING A RACE WEEKEND
